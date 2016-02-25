@@ -5,7 +5,7 @@ color cDarkGreen = #0CCA98;
 color cGreen = #00FFCC;
 
 //globals:
-int fps = 460;
+int fps = 46000;
 float revs = 2 * PI / fps;
 
 //object lists
@@ -34,20 +34,14 @@ void setup(){
 void draw() {
   loadPixels();
   pixelTemp = pixels;
-  step = 500 - (frameCount%480);
-  step = 26 + frameCount%100;
+  //changing step changes effects
+  step = 1 + frameCount%20;
   init = frameCount%width;
-  for(int i = init; i <width * height; i+=26) {
+  //loop condition for swaps
+  for(int i = init; i <width * height; i+=step) {
     n = (i + 500) % (width*height); 
-    //if(pixels[n] == cPurple){
-    //    pixelTemp[i] = cPurple;
-    //    pixelTemp[n] = cGreen;
-    //}
     
-    //if(pixels[n] == cGreen){
-    //    pixelTemp[i] = cGreen;
-    //    pixelTemp[n] = cPurple;
-    //}
+    //swap opposite colours
     if(pixels[i] == cGreen & pixels[n] == cPurple) {
       pixelTemp[i] = cPurple;
       pixelTemp[n] = cGreen;
@@ -60,7 +54,7 @@ void draw() {
   pixels = pixelTemp;
   updatePixels();
   
-  if(frameCount % 48 ==0) {
-    saveFrame("image_########.png");
+  if(frameCount % 460 ==0 & frameCount > 86000) {
+    //saveFrame("image_########.png");
   }
 }
